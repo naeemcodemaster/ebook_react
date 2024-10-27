@@ -12,8 +12,7 @@ function Register() {
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to store error message
-
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
     // Mutations
