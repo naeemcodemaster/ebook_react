@@ -38,7 +38,7 @@ function Register() {
                     <Button className="w-full">Sign Up</Button>
                     <div className="mt-2 text-center text-sm">
                         Already have an account? {' '}
-                        <Link to={'/login'}>
+                        <Link to={'/auth/login'}>
                             Sign in
                         </Link>
                     </div>
