@@ -1,11 +1,21 @@
+import useTokenStore from "@/store/store";
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: 'https://node-type-scriptebook.vercel.app',
     headers:{
         'Content-Type':'application/json'
     }
 })
+
+api.interceptors.request.use((config) => {
+    const token = useTokenStore.getState().token;
+    console.log("mytoken",token);
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
 
 
 export const login = async(data:{email:string;password:string}) => {
@@ -20,3 +30,16 @@ export const register = async(data:{name:string,email:string,password:string})=>
 export const getBooks = async()=>{
     return api.get('/api/books');
 }
+
+export const createBook = async (data: FormData) => {
+    try {
+        return await api.post('/api/books', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    } catch (error) {
+        console.error("Error in createBook:", error);
+        throw error; // Rethrow the error to propagate it up if needed
+    }
+};
