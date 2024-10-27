@@ -24,13 +24,22 @@ import {
     ShoppingCart,
     Users,
 } from 'lucide-react';
-import { Link,Navigate, NavLink, Outlet } from 'react-router-dom';
+import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
-    
-    const token = useTokenStore((state)=>state.token);
-    if(token == ''){
+    const { token, setToken } = useTokenStore((state) => state);
+
+
+    if (token == '') {
         return <Navigate to={'/auth/login'} replace />;
+    }
+
+
+    // Logout
+    const handleLogout = () => {
+
+        setToken('');
+        <Navigate to={'/auth/login'} replace />
     }
 
     return (
@@ -52,9 +61,8 @@ const DashboardLayout = () => {
                             <NavLink
                                 to="/dashboard/home"
                                 className={({ isActive }) => {
-                                    return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        isActive && 'bg-muted'
-                                    }`;
+                                    return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isActive && 'bg-muted'
+                                        }`;
                                 }}>
                                 <Home className="h-4 w-4" />
                                 Home
@@ -63,9 +71,8 @@ const DashboardLayout = () => {
                             <NavLink
                                 to="/dashboard/books"
                                 className={({ isActive }) => {
-                                    return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        isActive && 'bg-muted'
-                                    }`;
+                                    return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isActive && 'bg-muted'
+                                        }`;
                                 }}>
                                 <Package className="h-4 w-4" />
                                 Books{' '}
@@ -185,7 +192,7 @@ const DashboardLayout = () => {
                             <DropdownMenuItem>Support</DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <Button variant={'link'}>
+                                <Button variant={'link'} onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </DropdownMenuItem>
