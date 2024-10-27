@@ -3,12 +3,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router-dom"
-import { useRef,useState } from "react"
+import { useRef, useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { register } from "@/http/api"
 import { LoaderCircle } from "lucide-react"
+import useTokenStore from "@/store/store"
 function Register() {
     const navigate = useNavigate();
+    const setToken = useTokenStore((state) => state.setToken);
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -18,9 +20,9 @@ function Register() {
     // Mutations
     const mutation = useMutation({
         mutationFn: register,
-        onSuccess: () => {
+        onSuccess: (response) => {
             console.log("Login successfull")
-
+            setToken(response.data.accessToken)
             navigate('/dashboard/home')
         },
         onError: (error: any) => {
