@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useRef } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { login } from "@/http/api"
+import { LoaderCircle } from "lucide-react"
 
 
 
@@ -42,6 +43,7 @@ function LoginPage() {
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
                     <CardDescription>Add Email and Password to login with eBook</CardDescription>
+                    {/* {mutation.isPending &&  <div>Loading...</div>} */}
                 </CardHeader>
                 <CardContent>
                     <form>
@@ -59,7 +61,10 @@ function LoginPage() {
                 </CardContent>
                 <CardFooter className="flex justify-between flex-col">
 
-                    <Button onClick={handleLogin} className="w-full">Sign in</Button>
+                    <Button onClick={handleLogin} className="w-full" disabled={mutation.isPending}>
+                        {mutation.isPending && <LoaderCircle className="animate-spin"/>}
+                        <span>Sign in</span>
+                    </Button>
                     <div className="mt-2 text-center text-sm">
                         Don't have an account? {' '}
                         <Link to={'/auth/register'}>
