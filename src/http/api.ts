@@ -1,8 +1,10 @@
 import useTokenStore from "@/store/store";
 import axios from "axios";
 
+console.log("url",import.meta.env.VITE_BASE_URL);
+
 const api = axios.create({
-    baseURL: 'https://node-type-scriptebook.vercel.app',
+    baseURL: import.meta.env.VITE_BASE_URL,  // Accessing the environment variable
     headers:{
         'Content-Type':'application/json'
     }
