@@ -43,7 +43,7 @@ function LoginPage() {
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
                     <CardDescription>Add Email and Password to login with eBook</CardDescription>
-                    {/* {mutation.isPending &&  <div>Loading...</div>} */}
+                    {mutation.isError &&  <span className="text-red-500 text-sm">{mutation.error.message}</span>}
                 </CardHeader>
                 <CardContent>
                     <form>
